@@ -46,7 +46,7 @@ function processExcelBuffer(buffer) {
 
        // Convert rows to objects and transform
        const mappedData = dataRows
-           .filter(row => row[1] && isValidDate(row[1])) // Filter rows with valid Data valuta
+           .filter(row => row[0] && isValidDate(row[0])) // Filter rows with valid Date
            .map(row => {
                // Handle negative numbers in Addebiti
                let outflow = row[4] ? 
@@ -57,8 +57,8 @@ function processExcelBuffer(buffer) {
                    row[3].toString() : '';
                inflow = inflow.replace(/[€\s]/g, '');
 
-               // Always use Data valuta
-               const formattedDate = formatDate(row[1]);
+               // Always use the first column as Date
+               const formattedDate = formatDate(row[0]);
 
                return {
                    Date: formattedDate,
