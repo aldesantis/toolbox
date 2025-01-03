@@ -2,10 +2,17 @@
 
 gawk is AWK for human beings. It allows you to transform filenames and file contents using natural language prompts via Claude's AI.
 
-## Setup
+## Installation
+
+For now, you'll have to install Gawk from the GitHub repository:
+```console
+$ git clone https://github.com/aldesantis/toolbox.git
+$ cd toolbox/gawk
+$ npm install -g
+```
 
 Make sure to set up your Anthropic API key before using:
-```bash
+```console
 export ANTHROPIC_API_KEY='your-api-key'
 ```
 
@@ -16,7 +23,7 @@ export ANTHROPIC_API_KEY='your-api-key'
 
 Basic usage:
 ```bash
-node index.js <directory> [options]
+gawk <directory> [options]
 ```
 
 ### Arguments
@@ -43,21 +50,21 @@ node index.js <directory> [options]
 
 Transform file contents:
 ```bash
-node index.js ./docs \
+gawk ./docs \
   --content-prompt "Convert this text into a professional technical document" \
   --backup
 ```
 
 Transform filenames based on content:
 ```bash
-node index.js ./docs \
+gawk ./docs \
   --filename-prompt "Generate a descriptive filename based on the content. Keep it concise and use kebab-case." \
   --backup
 ```
 
 Combined transformation with custom settings:
 ```bash
-node index.js ./docs \
+gawk ./docs \
   --content-prompt "Enhance this text with more technical details" \
   --filename-prompt "Create a descriptive filename based on the content" \
   --concurrency 5 \
@@ -68,7 +75,7 @@ node index.js ./docs \
 
 Process specific file types:
 ```bash
-node index.js ./src \
+gawk ./src \
   --content-prompt "Add comprehensive JSDoc comments to this code" \
   --pattern "*.js" \
   --backup

@@ -4,7 +4,7 @@
   "description": "awk for human beings.",
   "type": "module",
   "bin": {
-    "claude-batch": "./index.js"
+    "gawk": "./index.js"
   },
   "scripts": {
     "start": "node index.js"
