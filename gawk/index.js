@@ -10,6 +10,7 @@ import colors from 'ansi-colors';
 import pLimit from 'p-limit';
 import { fileTypeFromFile } from 'file-type';
 import { createHash } from 'crypto';
+import { glob } from 'glob';
 
 // Configuration constants
 const CONFIG = {
@@ -369,23 +370,27 @@ async function validateEnvironment(options) {
   }
 }
 
-async function getFilePaths(directory, ignorePattern, recursive = true) {
+async function getFilePaths(directory, pattern, recursive = true) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
   let files = [];
 
   for (const entry of entries) {
     const fullPath = path.join(directory, entry.name);
     
-    if (entry.name.startsWith('.') || (ignorePattern && entry.name.match(ignorePattern))) {
+    if (entry.name.startsWith('.')) {
       continue;
     }
 
     if (entry.isDirectory() && recursive) {
-      const subFiles = await getFilePaths(fullPath, ignorePattern, recursive);
+      const subFiles = await getFilePaths(fullPath, pattern, recursive);
       files = files.concat(subFiles);
     } else if (entry.isFile()) {
       files.push(fullPath);
     }
+  }
+
+  if (pattern) {
+    files = files.filter(file => glob.sync(pattern, { cwd: directory }).includes(path.relative(directory, file)));
   }
 
   return files;
@@ -402,7 +407,7 @@ async function main() {
     .option('--max-tokens <number>', 'Maximum tokens in Claude response', CONFIG.DEFAULT_MAX_TOKENS.toString())
     .option('--dry-run', 'Show what would be processed without making changes')
     .option('--backup', 'Create backups of files before processing')
-    .option('--ignore <pattern>', 'Glob pattern of files to ignore')
+    .option('--pattern <pattern>', 'Glob pattern of files to process')
     .option('--recursive', 'Process subdirectories recursively', true)  // Set default to true
     .parse(process.argv);
 
@@ -437,7 +442,7 @@ async function main() {
 
     // Get files to process
     const spinner = ora('Reading directory...').start();
-    const filePaths = await getFilePaths(options.directory, options.ignore, options.recursive);
+    const filePaths = await getFilePaths(options.directory, options.pattern, options.recursive);
     spinner.succeed(`Found ${filePaths.length} files`);
 
     // Handle dry run

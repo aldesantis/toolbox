@@ -16,12 +16,12 @@ export ANTHROPIC_API_KEY='your-api-key'
 
 Basic usage:
 ```bash
-node index.js -d <directory> [options]
+node index.js <directory> [options]
 ```
 
-### Required arguments
+### Arguments
 
-- `-d, --directory <path>`: Directory containing files to process
+- `<directory>`: Directory containing files to process
 
 ### Transformation options (at least one required)
 
@@ -36,28 +36,28 @@ node index.js -d <directory> [options]
 - `--max-tokens <number>`: Maximum tokens in response (default: 4096)
 - `--dry-run`: Show what would be processed without making changes
 - `--backup`: Create backups of files before processing
-- `--ignore <pattern>`: Glob pattern of files to ignore
+- `--pattern <pattern>`: Glob pattern of files to process
 - `--recursive`: Process subdirectories recursively (default: true)
 
 ### Examples
 
 Transform file contents:
 ```bash
-node index.js -d ./docs \
+node index.js ./docs \
   --content-prompt "Convert this text into a professional technical document" \
   --backup
 ```
 
 Transform filenames based on content:
 ```bash
-node index.js -d ./docs \
+node index.js ./docs \
   --filename-prompt "Generate a descriptive filename based on the content. Keep it concise and use kebab-case." \
   --backup
 ```
 
 Combined transformation with custom settings:
 ```bash
-node index.js -d ./docs \
+node index.js ./docs \
   --content-prompt "Enhance this text with more technical details" \
   --filename-prompt "Create a descriptive filename based on the content" \
   --concurrency 5 \
@@ -68,9 +68,9 @@ node index.js -d ./docs \
 
 Process specific file types:
 ```bash
-node index.js -d ./src \
+node index.js ./src \
   --content-prompt "Add comprehensive JSDoc comments to this code" \
-  --ignore "*.test.js" \
+  --pattern "*.js" \
   --backup
 ```
 
