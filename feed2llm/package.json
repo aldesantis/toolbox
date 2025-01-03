@@ -16,6 +16,9 @@
     "summary"
   ],
   "author": "",
+  "bin": {
+    "feed2llm": "./index.js"
+  },
   "license": "MIT",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.18.0",

@@ -24,24 +24,23 @@ The tool automatically extracts article content using CSS selectors, converts it
 
 ## Installation
 
-1. Clone this repository or create a new directory:
+For now, you'll have to install feed2llm from the GitHub repository:
 ```bash
-mkdir feed-processor
-cd feed-processor
+$ git clone https://github.com/aldesantis/toolbox.git
+$ cd toolbox/feed2llm
+$ npm install -g
 ```
 
-2. Copy the `index.js` and `package.json` files into your directory
-
-3. Install dependencies:
+Make sure to set up your Anthropic API key before using:
 ```bash
-npm install
+export ANTHROPIC_API_KEY='your-api-key'
 ```
 
 ## Usage
 
 Basic usage with required parameters:
 ```bash
-node index.js --feed <feed-url> --key <your-anthropic-key>
+feed2llm --feed <feed-url> --key <your-anthropic-key>
 ```
 
 Full options:

@@ -1,21 +1,21 @@
 {
   "name": "linear2llm",
   "version": "1.0.0",
-  "description": "CLI tool to export Linear projects and issues into a format suitable for AI processing.",
+  "description": "Exports Linear projects and issues into a format suitable for AI processing.",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "linear-export": "./index.js"
+    "linear2llm": "./index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "linear",
-    "cli",
-    "export",
-    "markdown",
-    "project-management"
+    "project",
+    "issue",
+    "ai"
   ],
   "author": "",
   "license": "MIT",

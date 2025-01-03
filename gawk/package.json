@@ -1,21 +1,20 @@
 {
   "name": "gawk",
   "version": "1.0.0",
-  "description": "awk for human beings.",
+  "description": "AWK for human beings. Transforms filenames and file contents using AI.",
   "type": "module",
+  "main": "index.js",
   "bin": {
     "gawk": "./index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "claude",
-    "anthropic",
-    "batch",
-    "file-processing",
-    "cli",
-    "ai"
+    "awk",
+    "ai",
+    "transform"
   ],
   "author": "",
   "license": "MIT",

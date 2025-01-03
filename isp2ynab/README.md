@@ -12,12 +12,21 @@ This Node.js script converts Intesa Sanpaolo bank statement Excel files (XLSX) i
 - Validates transaction dates
 - Preserves transaction descriptions
 
+## Installation
+
+For now, you'll have to install isp2ynab from the GitHub repository:
+```bash
+$ git clone https://github.com/aldesantis/toolbox.git
+$ cd toolbox/isp2ynab
+$ npm install -g
+```
+
 ## Usage
 
 The script reads from standard input (STDIN) and writes to standard output (STDOUT):
 
 ```bash
-node index.js < "MovimentiConto.xlsx" > ynab_import.csv
+isp2ynab < "MovimentiConto.xlsx" > ynab_import.csv
 ```
 
 ### Output format

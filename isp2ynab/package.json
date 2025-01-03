@@ -1,16 +1,23 @@
 {
   "name": "isp2ynab",
   "version": "1.0.0",
-  "description": "",
+  "description": "Converts Intesa Sanpaolo bank statement Excel files to YNAB-compatible CSV.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "bin": {
+    "isp2ynab": "./index.js"
+  },
+  "keywords": [
+    "excel",
+    "ynab",
+    "bank",
+    "statement"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^18.0.6",
     "xlsx": "^0.18.5"
   }
 }

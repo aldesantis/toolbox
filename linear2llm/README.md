@@ -24,22 +24,23 @@ You can find your Linear API key in your Linear account settings under "API" sec
 
 ## Installation
 
-1. Clone the repository
-2. Install dependencies:
+For now, you'll have to install linear2llm from the GitHub repository:
 ```bash
-npm install commander graphql-request ora chalk
+$ git clone https://github.com/aldesantis/toolbox.git
+$ cd toolbox/linear2llm
+$ npm install -g
 ```
 
 ## Usage
 
 Basic usage with default settings (exports 'planned' and 'started' projects):
 ```bash
-node index.js -t <team-key> <output-directory>
+linear2llm -t <team-key> <output-directory>
 ```
 
 Example:
 ```bash
-node index.js -t ENG ./exports
+linear2llm -t ENG ./exports
 ```
 
 ### Options
@@ -52,17 +53,17 @@ node index.js -t ENG ./exports
 
 Export planned and started projects (default):
 ```bash
-node index.js -t ENG ./exports
+linear2llm -t ENG ./exports
 ```
 
 Export only completed projects:
 ```bash
-node index.js -t ENG -s "completed" ./exports
+linear2llm -t ENG -s "completed" ./exports
 ```
 
 Export projects with multiple statuses:
 ```bash
-node index.js -t ENG -s "planned,started,completed" ./exports
+linear2llm -t ENG -s "planned,started,completed" ./exports
 ```
 
 ## Output format
