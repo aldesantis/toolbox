@@ -1,0 +1,32 @@
+{
+  "name": "linear2prompt",
+  "version": "1.0.0",
+  "description": "CLI tool to export Linear projects and issues into a format suitable for AI processing.",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "linear-export": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "linear",
+    "cli",
+    "export",
+    "markdown",
+    "project-management"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "graphql-request": "^6.1.0",
+    "ora": "^7.0.1",
+    "table": "^6.8.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
