@@ -1,5 +1,5 @@
 {
-  "name": "linear2prompt",
+  "name": "linear2llm",
   "version": "1.0.0",
   "description": "CLI tool to export Linear projects and issues into a format suitable for AI processing.",
   "main": "index.js",

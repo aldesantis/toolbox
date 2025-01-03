@@ -1,7 +1,7 @@
 {
-  "name": "feed-processor",
+  "name": "feed2llm",
   "version": "1.0.0",
-  "description": "Generic XML/RSS feed processor with AI summaries",
+  "description": "Convert an RSS feed into an LLM-friendly knowledge base.",
   "type": "module",
   "main": "index.js",
   "scripts": {

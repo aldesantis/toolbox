@@ -1,4 +1,4 @@
-# linear2prompt
+# linear2llm
 
 A command-line tool for exporting Linear projects and issues to a format suitable for LLM consumption. The tool exports project and issue data in a structured text format with clear markers and relationships, making it ideal for analysis by language models.
 

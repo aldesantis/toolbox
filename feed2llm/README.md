@@ -1,6 +1,8 @@
-# Feed Processor
+# feed2llm
 
-A Node.js tool that processes XML/RSS feeds and generates AI-powered summaries of articles using Claude AI. The tool automatically extracts article content using CSS selectors, converts it to clean Markdown, and creates both individual summaries and a comprehensive meta-analysis.
+A Node.js tool that processes XML/RSS feeds and converts them into an LLM-compatible knowledge base.
+
+The tool automatically extracts article content using CSS selectors, converts it to clean Markdown, and creates both individual summaries and a comprehensive meta-analysis.
 
 ## Features
 
