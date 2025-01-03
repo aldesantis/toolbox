@@ -1,7 +1,7 @@
 {
-  "name": "claude-batch-processor",
+  "name": "gawk",
   "version": "1.0.0",
-  "description": "A CLI tool for batch processing files using Claude AI",
+  "description": "awk for human beings.",
   "type": "module",
   "bin": {
     "claude-batch": "./index.js"

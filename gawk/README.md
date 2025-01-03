@@ -1,4 +1,4 @@
-# Claude Batch Processor
+# gawk
 
 A command-line tool for batch processing files using Claude AI. This tool can transform both file contents and filenames using Claude, with the ability to process multiple files in parallel.
 
