@@ -1,0 +1,29 @@
+{
+  "name": "trustpilot-scraper",
+  "version": "1.0.0",
+  "description": "CLI tool to scrape reviews from Trustpilot",
+  "main": "index.js",
+  "bin": {
+    "trustpilot-scraper": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "trustpilot",
+    "scraper",
+    "reviews",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^11.0.0",
+    "node-fetch": "^2.6.12"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
