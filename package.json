@@ -6,12 +6,8 @@
     "feed2llm",
     "gawk",
     "isp2ynab",
-    "linear2llm"
-  ],
-  "scripts": {
-    "start:feed2llm": "npm --workspace feed2llm start",
-    "start:gawk": "npm --workspace gawk start",
-    "start:isp2ynab": "npm --workspace isp2ynab start",
-    "start:linear2llm": "npm --workspace linear2llm start"
-  }
+    "linear2llm",
+    "trustpilot-scraper",
+    "receipt2json"
+  ]
 }
