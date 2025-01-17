@@ -11,12 +11,12 @@ const anthropic = new Anthropic({
 async function analyzeReceiptWithClaude(pdfContent) {
   const systemPrompt = `You are a receipt analysis assistant. Extract the following information from the receipt:
 - Currency (ISO code)
-- Total amount
+- Net amount (total excluding VAT)
 - VAT amount
 - Date
 - Payee/business name
 
-Return only a JSON object with these fields: currency, total, vat, date, payee. 
+Return only a JSON object with these fields: currency, net, vat, date, payee. 
 No explanation or other text.`;
 
   const response = await anthropic.messages.create({
@@ -48,7 +48,7 @@ No explanation or other text.`;
 }
 
 async function validateOutput(data) {
-  const requiredFields = ["currency", "total", "vat", "date", "payee"];
+  const requiredFields = ["currency", "net", "vat", "date", "payee"];
   const missingFields = requiredFields.filter((field) => !data[field]);
 
   if (missingFields.length > 0) {
@@ -60,9 +60,9 @@ async function validateOutput(data) {
     throw new Error("Invalid currency ISO code");
   }
 
-  // Validate total and VAT are numbers
-  if (isNaN(parseFloat(data.total))) {
-    throw new Error("Invalid total amount");
+  // Validate net and VAT are numbers
+  if (isNaN(parseFloat(data.net))) {
+    throw new Error("Invalid net amount");
   }
   if (isNaN(parseFloat(data.vat))) {
     throw new Error("Invalid VAT amount");

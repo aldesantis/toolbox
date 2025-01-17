@@ -1,6 +1,6 @@
 # receipt2json
 
-A command-line utility that extracts structured information from receipt PDFs using the Claude AI API. The tool analyzes receipts and returns standardized JSON data containing key information such as total amount, VAT, date, and business details.
+A command-line utility that extracts structured information from receipt PDFs using the Claude AI API. The tool analyzes receipts and returns standardized JSON data containing key information such as net amount, VAT, date, and business details.
 
 ## Installation
 
@@ -63,7 +63,7 @@ Chain with other commands:
 cat *.pdf | receipt2json | jq -c '.[]' > all_results.json
 
 # Filter results
-receipt2json < receipt.pdf | jq 'select(.total > 100)'
+receipt2json < receipt.pdf | jq 'select(.net > 100)'
 
 # Format output
 receipt2json < receipt.pdf | jq -r '.payee'
@@ -76,7 +76,7 @@ The tool returns a JSON object with the following structure:
 ```json
 {
   "currency": "USD",
-  "total": 123.45,
+  "net": 123.45,
   "vat": 20.58,
   "date": "2024-01-15",
   "payee": "Business Name Ltd"
