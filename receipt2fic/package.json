@@ -1,11 +1,11 @@
 {
-  "name": "create-fic-receipt",
+  "name": "receipt2fic",
   "version": "1.0.0",
-  "description": "CLI utility to create received documents in Fatture in Cloud.",
+  "description": "CLI utility to analyze receipts with Claude and upload them to Fatture in Cloud.",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "create-fic-receipt": "./index.js"
+    "receipt2fic": "./index.js"
   },
   "scripts": {
     "start": "node index.js"
@@ -15,15 +15,20 @@
     "invoice",
     "document",
     "upload",
-    "cli"
+    "cli",
+    "claude",
+    "anthropic",
+    "receipt",
+    "analysis"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.18.0",
     "@fattureincloud/fattureincloud-js-sdk": "^2.0.15",
-    "yargs": "^17.7.2"
+    "commander": "^12.0.0"
   },
   "engines": {
-    "node": ">=14.16"
+    "node": ">=18.0.0"
   }
 }
