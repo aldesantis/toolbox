@@ -8,6 +8,7 @@
     "isp2ynab",
     "linear2llm",
     "trustpilot-scraper",
-    "receipt2json"
+    "receipt2json",
+    "create-fic-receipt"
   ]
 }

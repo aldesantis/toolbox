@@ -1,0 +1,29 @@
+{
+  "name": "create-fic-receipt",
+  "version": "1.0.0",
+  "description": "CLI utility to create received documents in Fatture in Cloud.",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "create-fic-receipt": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "fattureincloud",
+    "invoice",
+    "document",
+    "upload",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fattureincloud/fattureincloud-js-sdk": "^2.0.15",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=14.16"
+  }
+}
