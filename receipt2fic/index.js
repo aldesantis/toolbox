@@ -40,6 +40,11 @@ function logError(message) {
   console.error(`❌ ${message}`);
 }
 
+// Warning logging
+function logWarning(message) {
+  console.warn(`⚠️  ${message}`);
+}
+
 async function analyzeReceiptWithClaude(pdfPath) {
   try {
     const anthropic = initializeAnthropic();
@@ -48,11 +53,11 @@ async function analyzeReceiptWithClaude(pdfPath) {
     const systemPrompt = `You are a receipt analysis assistant. Extract the following information from the receipt:
 - Currency (ISO code)
 - Net amount (total excluding VAT)
-- VAT amount
+- VAT amount (if present)
 - Date
 - Payee/business name
 
-Return only a JSON object with these fields: currency, net, vat, date, payee. 
+Return only a JSON object with these fields: currency, net, vat (optional), date, payee. 
 No explanation or other text.`;
 
     const response = await anthropic.messages.create({
@@ -84,7 +89,7 @@ No explanation or other text.`;
 }
 
 async function validateOutput(data) {
-  const requiredFields = ["currency", "net", "vat", "date", "payee"];
+  const requiredFields = ["currency", "net", "date", "payee"];
   const missingFields = requiredFields.filter((field) => !data[field]);
 
   if (missingFields.length > 0) {
@@ -95,8 +100,16 @@ async function validateOutput(data) {
     throw new Error("Invalid currency ISO code");
   }
 
-  if (isNaN(parseFloat(data.net)) || isNaN(parseFloat(data.vat))) {
-    throw new Error("Invalid amount values");
+  if (isNaN(parseFloat(data.net))) {
+    throw new Error("Invalid net amount value");
+  }
+
+  // Handle optional VAT field
+  if (data.vat === undefined || data.vat === null) {
+    logWarning('VAT amount not found in receipt - defaulting to 0');
+    data.vat = 0;
+  } else if (isNaN(parseFloat(data.vat))) {
+    throw new Error("Invalid VAT amount value");
   }
 
   if (isNaN(Date.parse(data.date))) {
