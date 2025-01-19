@@ -1,4 +1,4 @@
-# trustpilot-scraper
+# trustpilot2json
 
 A command-line utility that scrapes reviews from Trustpilot for a specific domain. This tool extracts review data including ratings, content, author information, and publication dates, outputting the results in JSON format.
 
@@ -8,7 +8,7 @@ A command-line utility that scrapes reviews from Trustpilot for a specific domai
 
 ```bash
 git clone git://github.com/aldesantis/toolbox.git
-cd trustpilot-scraper
+cd trustpilot2json
 ```
 
 2. Install dependencies:
@@ -36,7 +36,7 @@ npm install -g .
 ### Basic Usage
 
 ```bash
-trustpilot-scraper example.com
+trustpilot2json example.com
 ```
 
 If running locally without global installation:
@@ -74,10 +74,10 @@ Each review in the output includes:
 
 ```bash
 # Save reviews to a file
-trustpilot-scraper example.com -o reviews.json
+trustpilot2json example.com -o reviews.json
 
 # Print reviews to console
-trustpilot-scraper example.com
+trustpilot2json example.com
 ```
 
 The output will be in JSON format with the following structure:

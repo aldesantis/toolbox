@@ -7,7 +7,7 @@ const commander = require('commander');
 // Set up command line interface
 const program = new commander.Command();
 program
-  .name('trustpilot-scraper')
+  .name('trustpilot2json')
   .description('Scrape reviews from Trustpilot for a specific domain')
   .argument('<domain>', 'domain to scrape (e.g., example.com)')
   .option('-o, --output <file>', 'output file (default: stdout)')

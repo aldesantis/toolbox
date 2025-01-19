@@ -7,7 +7,7 @@
     "gawk",
     "isp2ynab",
     "linear2llm",
-    "trustpilot-scraper",
+    "trustpilot2json",
     "receipt2fic"
   ]
 }

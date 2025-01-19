@@ -1,10 +1,10 @@
 {
-  "name": "trustpilot-scraper",
+  "name": "trustpilot2json",
   "version": "1.0.0",
   "description": "CLI tool to scrape reviews from Trustpilot",
   "main": "index.js",
   "bin": {
-    "trustpilot-scraper": "./index.js"
+    "trustpilot2json": "./index.js"
   },
   "scripts": {
     "start": "node index.js",
