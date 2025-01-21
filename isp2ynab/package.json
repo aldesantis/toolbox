@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Converts Intesa Sanpaolo bank statement Excel files to YNAB-compatible CSV.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

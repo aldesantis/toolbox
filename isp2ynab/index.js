@@ -1,4 +1,6 @@
-const XLSX = require('xlsx');
+#!/usr/bin/env node
+
+import * as XLSX from 'xlsx';
 
 function isValidDate(dateStr) {
    // Check if it's a string and has the expected format DD/MM/YY
