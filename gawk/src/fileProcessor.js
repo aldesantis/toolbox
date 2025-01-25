@@ -6,11 +6,14 @@ import { CONFIG } from './config.js';
 import { PROMPTS } from './prompts.js';
 import cliProgress from 'cli-progress';
 import colors from 'ansi-colors';
+import Anthropic from '@anthropic-ai/sdk';
 
 class FileProcessor {
   constructor(options) {
     this.options = options;
-    this.ollamaEndpoint = 'http://localhost:11434/api/generate';
+    this.anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    });
     this.progressBar = null;
   }
 
@@ -46,29 +49,18 @@ class FileProcessor {
     return backupPath;
   }
 
-  async callOllama(prompt, model = CONFIG.DEFAULT_MODEL) {
+  async callClaude(prompt, model = CONFIG.DEFAULT_MODEL) {
     try {
-      const response = await fetch(this.ollamaEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: this.options.model || model,
-          prompt: prompt,
-          stream: false,
-          temperature: parseFloat(this.options.temperature) || CONFIG.DEFAULT_TEMPERATURE,
-        }),
+      const response = await this.anthropic.messages.create({
+        model: this.options.model || model,
+        max_tokens: CONFIG.API_MAX_TOKENS,
+        temperature: parseFloat(this.options.temperature) || CONFIG.DEFAULT_TEMPERATURE,
+        messages: [{ role: 'user', content: prompt }],
       });
 
-      if (!response.ok) {
-        throw new Error(`Ollama API error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data.response.trim();
+      return response.content[0].text.trim();
     } catch (error) {
-      throw new Error(`Failed to call Ollama: ${error.message}`);
+      throw new Error(`Failed to call Claude: ${error.message}`);
     }
   }
 
@@ -117,7 +109,7 @@ class FileProcessor {
       }
     }
     
-    const newName = await this.callOllama(
+    const newName = await this.callClaude(
       PROMPTS.filename(oldName, fileContent || '[Content not required]', this.options.filenamePrompt)
     );
     
@@ -128,7 +120,7 @@ class FileProcessor {
   async transformContent(filepath) {
     const content = await fs.readFile(filepath, 'utf8');
     const filename = path.basename(filepath);
-    const transformed = await this.callOllama(
+    const transformed = await this.callClaude(
       PROMPTS.content(content, filename, this.options.contentPrompt)
     );
     

@@ -25,7 +25,8 @@
     "file-type": "^19.0.0",
     "glob": "^11.0.0",
     "ora": "^8.0.1",
-    "p-limit": "^5.0.0"
+    "p-limit": "^5.0.0",
+    "@anthropic-ai/sdk": "^0.17.1"
   },
   "engines": {
     "node": ">=18.0.0"
