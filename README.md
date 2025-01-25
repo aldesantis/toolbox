@@ -13,6 +13,7 @@ This toolbox is a good example of home-cooked software as discussed by Maggie Ap
 | [`feed2llm`](https://github.com/aldesantis/toolbox/tree/main/feed2llm)               | Converts an RSS feed into an LLM-friendly knowledge base.                    |
 | [`fireflies2md`](https://github.com/aldesantis/toolbox/tree/main/fireflies2md)       | Downloads Fireflies.ai meeting transcripts and converts them to Markdown.    |
 | [`gawk`](https://github.com/aldesantis/toolbox/tree/main/gawk)                       | AWK for human beings. Transforms filenames and file contents using AI.       |
+| [`gmail2md`](https://github.com/aldesantis/toolbox/tree/main/gmail2md)               | Exports Gmail threads for a date range as clean, readable Markdown files.    |
 | [`isp2ynab`](https://github.com/aldesantis/toolbox/tree/main/isp2ynab)               | Converts Intesa Sanpaolo bank statement Excel files to YNAB-compatible CSV.  |
 | [`linear2llm`](https://github.com/aldesantis/toolbox/tree/main/linear2llm)           | Exports Linear projects and issues into a format suitable for AI processing. |
 | [`nugget`](https://github.com/aldesantis/toolbox/tree/main/nugget)                   | Uses Claude to analyze Markdown files and generate content suggestions.      |
