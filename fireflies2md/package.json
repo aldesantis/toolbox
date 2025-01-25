@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "CLI utility to download Fireflies.ai meeting transcripts",
   "type": "module",
-  "main": "fireflies-downloader.js",
+  "main": "index.js",
   "bin": {
-    "fireflies-downloader": "./fireflies-downloader.js"
+    "fireflies2md": "./index.js"
   },
   "scripts": {
-    "start": "node fireflies-downloader.js"
+    "start": "node index.js"
   },
   "keywords": [
     "fireflies",

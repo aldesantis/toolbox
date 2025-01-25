@@ -95,7 +95,7 @@ async function getGmailClient() {
   try {
     const auth = await authenticate({
       scopes: SCOPES,
-      keyfilePath: path.join(process.cwd(), 'credentials.json')
+      keyfilePath: path.join(path.dirname(new URL(import.meta.url).pathname), 'credentials.json')
     });
     
     return google.gmail({ version: 'v1', auth });
