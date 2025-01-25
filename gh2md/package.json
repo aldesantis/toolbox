@@ -1,0 +1,30 @@
+{
+  "name": "gh2md",
+  "version": "1.0.0",
+  "description": "CLI tool to generate activity summaries from GitHub",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "gh2md": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "github",
+    "activity",
+    "cli",
+    "summary"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^20.0.2",
+    "ansi-colors": "^4.1.3",
+    "cli-progress": "^3.12.0",
+    "commander": "^11.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

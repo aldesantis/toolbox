@@ -13,6 +13,7 @@ This toolbox is a good example of home-cooked software as discussed by Maggie Ap
 | [`feed2llm`](https://github.com/aldesantis/toolbox/tree/main/feed2llm)               | Converts an RSS feed into an LLM-friendly knowledge base.                    |
 | [`fireflies2md`](https://github.com/aldesantis/toolbox/tree/main/fireflies2md)       | Downloads Fireflies.ai meeting transcripts and converts them to Markdown.    |
 | [`gawk`](https://github.com/aldesantis/toolbox/tree/main/gawk)                       | AWK for human beings. Transforms filenames and file contents using AI.       |
+| [`gh2md`](https://github.com/aldesantis/toolbox/tree/main/gh2md)                     | Exports GitHub activity for a date range as formatted Markdown files.        |
 | [`gmail2md`](https://github.com/aldesantis/toolbox/tree/main/gmail2md)               | Exports Gmail threads for a date range as clean, readable Markdown files.    |
 | [`isp2ynab`](https://github.com/aldesantis/toolbox/tree/main/isp2ynab)               | Converts Intesa Sanpaolo bank statement Excel files to YNAB-compatible CSV.  |
 | [`linear2llm`](https://github.com/aldesantis/toolbox/tree/main/linear2llm)           | Exports Linear projects and issues into a format suitable for AI processing. |
@@ -27,4 +28,4 @@ This repository is licensed under the MIT License. See the LICENSE file for more
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit issues and enhancement requests.
+Contributions are welcome! Please feel free to submit issues and enhancement requests
