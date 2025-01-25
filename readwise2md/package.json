@@ -1,0 +1,29 @@
+{
+  "name": "readwise2md",
+  "version": "1.0.0",
+  "description": "CLI tool to export Readwise highlights to Markdown files",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "readwise2md": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "readwise",
+    "cli",
+    "markdown",
+    "export",
+    "highlights"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^13.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
