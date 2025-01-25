@@ -1,0 +1,33 @@
+{
+  "name": "nugget",
+  "version": "1.0.0",
+  "description": "CLI tool to analyze Markdown files and generate content suggestions using Claude",
+  "type": "module",
+  "bin": {
+    "nugget": "./analyze-content.js"
+  },
+  "scripts": {
+    "start": "./analyze-content.js"
+  },
+  "keywords": [
+    "cli",
+    "content",
+    "analysis",
+    "markdown",
+    "claude",
+    "anthropic",
+    "ai"
+  ],
+  "author": "Nebulab",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.36.2",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "glob-promise": "^6.0.7",
+    "cli-progress": "^3.12.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
