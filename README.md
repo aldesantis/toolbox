@@ -11,9 +11,11 @@ This toolbox is a good example of home-cooked software as discussed by Maggie Ap
 | Utility                                                                              | Description                                                                  |
 | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
 | [`feed2llm`](https://github.com/aldesantis/toolbox/tree/main/feed2llm)               | Converts an RSS feed into an LLM-friendly knowledge base.                    |
+| [`fireflies2md`](https://github.com/aldesantis/toolbox/tree/main/fireflies2md)       | Downloads Fireflies.ai meeting transcripts and converts them to Markdown.    |
 | [`gawk`](https://github.com/aldesantis/toolbox/tree/main/gawk)                       | AWK for human beings. Transforms filenames and file contents using AI.       |
 | [`isp2ynab`](https://github.com/aldesantis/toolbox/tree/main/isp2ynab)               | Converts Intesa Sanpaolo bank statement Excel files to YNAB-compatible CSV.  |
 | [`linear2llm`](https://github.com/aldesantis/toolbox/tree/main/linear2llm)           | Exports Linear projects and issues into a format suitable for AI processing. |
+| [`nugget`](https://github.com/aldesantis/toolbox/tree/main/nugget)                   | Uses Claude to analyze Markdown files and generate content suggestions.      |
 | [`receipt2fic`](https://github.com/aldesantis/toolbox/tree/main/receipt2fic)         | Analyzes PDF receipts and automatically uploads them to Fatture in Cloud.    |
 | [`trustpilot2json`](https://github.com/aldesantis/toolbox/tree/main/trustpilot2json) | Scrapes and exports reviews from Trustpilot for a specific domain.           |
 
