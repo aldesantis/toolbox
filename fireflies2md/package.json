@@ -1,0 +1,29 @@
+{
+  "name": "fireflies2md",
+  "version": "1.0.0",
+  "description": "CLI utility to download Fireflies.ai meeting transcripts",
+  "type": "module",
+  "main": "fireflies-downloader.js",
+  "bin": {
+    "fireflies-downloader": "./fireflies-downloader.js"
+  },
+  "scripts": {
+    "start": "node fireflies-downloader.js"
+  },
+  "keywords": [
+    "fireflies",
+    "transcript",
+    "cli",
+    "downloader"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "dotenv": "^16.4.1",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
