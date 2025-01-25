@@ -17,12 +17,13 @@ program
   .argument('<directory>', 'Directory containing Markdown files')
   .option('-m, --model <model>', 'Claude model to use', 'claude-3-5-sonnet-20241022')
   .option('-i, --instructions <path>', 'Path to instructions file (defaults to ~/.nuggetrc)')
+  .option('-r, --max-retries <number>', 'Maximum number of retries per file', '3')
+  .option('-d, --delay <number>', 'Initial delay between retries in ms', '1000');
 
 program.parse();
 const options = program.opts();
 const directory = program.args[0];
 
-// Default instructions that can be overridden
 const PROMPT_TEMPLATE = `{instructions}
 
 Based on these instructions, analyze this content and suggest 2-3 interesting LinkedIn posts or blog topics that would be valuable for my audience.
@@ -62,6 +63,32 @@ if (!process.env.ANTHROPIC_API_KEY) {
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function withRetry(operation, maxRetries, initialDelay) {
+  let lastError;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      
+      if (!error.status || (error.status !== 429 && error.status !== 503)) {
+        throw error;
+      }
+
+      if (attempt === maxRetries - 1) {
+        throw error;
+      }
+
+      const delay = initialDelay * Math.pow(2, attempt) * (0.5 + Math.random());
+      console.error(chalk.yellow(`\nRate limit hit. Retrying in ${Math.round(delay/1000)}s...`));
+      await sleep(delay);
+    }
+  }
+  throw lastError;
+}
 
 async function loadAnalysisInstructions() {
   try {
@@ -103,14 +130,18 @@ async function analyzeContent(filePath, instructions, progressBar) {
       .replace('{instructions}', instructions)
       .replace('{content}', content);
 
-    const message = await anthropic.messages.create({
-      model: options.model,
-      max_tokens: 1000,
-      messages: [{
-        role: "user",
-        content: prompt
-      }]
-    });
+    const message = await withRetry(
+      async () => anthropic.messages.create({
+        model: options.model,
+        max_tokens: 1000,
+        messages: [{
+          role: "user",
+          content: prompt
+        }]
+      }),
+      parseInt(options.maxRetries),
+      parseInt(options.delay)
+    );
 
     progressBar.increment(1);
     return {
@@ -132,6 +163,16 @@ async function analyzeContent(filePath, instructions, progressBar) {
       error: error.message
     };
   }
+}
+
+async function processFilesSequentially(files, instructions, progressBar) {
+  const results = [];
+  for (const file of files) {
+    const result = await analyzeContent(file, instructions, progressBar);
+    results.push(result);
+    await sleep(200);
+  }
+  return results;
 }
 
 async function main() {
@@ -158,9 +199,7 @@ async function main() {
 
     progressBar.start(files.length, 0);
 
-    const results = await Promise.all(
-      files.map(file => analyzeContent(file, instructions, progressBar))
-    );
+    const results = await processFilesSequentially(files, instructions, progressBar);
     
     progressBar.stop();
     console.error('\n');
