@@ -26,7 +26,9 @@ const directory = program.args[0];
 
 const PROMPT_TEMPLATE = `{instructions}
 
-Based on these instructions, analyze this content and suggest 2-3 interesting LinkedIn posts or blog topics that would be valuable for my audience.
+Based on these instructions, analyze this content and suggest 2-3 interesting content ideas that would be valuable for my audience.
+
+Please, don't force it: if you can't find any interesting content, just say "No suggestions found".
 
 Content to analyze:
 {content}
