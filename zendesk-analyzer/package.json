@@ -1,27 +1,27 @@
 {
-  "name": "trustpilot2json",
+  "name": "zendesk-analyzer",
   "version": "1.0.0",
-  "description": "CLI tool to scrape reviews from Trustpilot",
+  "description": "CLI tool to fetch and analyze Zendesk tickets",
   "main": "index.js",
   "bin": {
-    "trustpilot2json": "./index.js"
+    "zendesk-analyzer": "./index.js"
   },
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "trustpilot",
-    "scraper",
-    "reviews",
+    "zendesk",
+    "tickets",
+    "analyzer",
     "cli"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0",
-    "commander": "^13.1.0",
-    "node-fetch": "^3.3.2"
+    "commander": "^11.0.0",
+    "node-fetch": "^2.6.12",
+    "progress": "^2.0.3"
   },
   "engines": {
     "node": ">=14.0.0"

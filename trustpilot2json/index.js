@@ -3,6 +3,7 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const commander = require('commander');
+const fs = require('fs');
 
 // Set up command line interface
 const program = new commander.Command();
@@ -11,6 +12,7 @@ program
   .description('Scrape reviews from Trustpilot for a specific domain')
   .argument('<domain>', 'domain to scrape (e.g., example.com)')
   .option('-o, --output <file>', 'output file (default: stdout)')
+  .option('-f, --format <format>', 'output format (json or markdown)', 'json')
   .version('1.0.0');
 
 program.parse();
@@ -93,11 +95,31 @@ async function getAllReviews(domain) {
   return allReviews;
 }
 
+function formatAsMarkdown(data) {
+  const { domain, total_reviews, reviews } = data;
+  let markdown = `# Trustpilot Reviews for ${domain}\n\n`;
+  markdown += `Total reviews: ${total_reviews}\n\n`;
+  
+  reviews.forEach(review => {
+    const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+    markdown += `## ${review.title}\n\n`;
+    markdown += `**Author:** [${review.author}](${review.author_url})  \n`;
+    markdown += `**Date:** ${review.date}  \n`;
+    markdown += `**Rating:** ${stars} (${review.rating}/5)  \n`;
+    markdown += `**Language:** ${review.language}  \n\n`;
+    markdown += `${review.content}\n\n`;
+    markdown += `---\n\n`;
+  });
+  
+  return markdown;
+}
+
 // Main execution
 (async () => {
   try {
     const domain = program.args[0];
     const reviews = await getAllReviews(domain);
+    const format = program.opts().format.toLowerCase();
     
     // Output results
     const output = {
@@ -106,12 +128,21 @@ async function getAllReviews(domain) {
       reviews
     };
     
-    if (program.opts().output) {
-      const fs = require('fs');
-      fs.writeFileSync(program.opts().output, JSON.stringify(output, null, 2));
-      console.error(`Wrote ${reviews.length} reviews to ${program.opts().output}`);
+    let formattedOutput;
+    if (format === 'markdown') {
+      formattedOutput = formatAsMarkdown(output);
+    } else if (format === 'json') {
+      formattedOutput = JSON.stringify(output, null, 2);
     } else {
-      console.log(JSON.stringify(output, null, 2));
+      console.error(`Unsupported format: ${format}. Using JSON as default.`);
+      formattedOutput = JSON.stringify(output, null, 2);
+    }
+    
+    if (program.opts().output) {
+      fs.writeFileSync(program.opts().output, formattedOutput);
+      console.error(`Wrote ${reviews.length} reviews to ${program.opts().output} in ${format} format`);
+    } else {
+      console.log(formattedOutput);
     }
   } catch (error) {
     console.error('Fatal error:', error);
