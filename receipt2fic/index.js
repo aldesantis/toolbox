@@ -5,6 +5,7 @@ import path from 'path';
 import { Command } from 'commander';
 import * as fattureInCloudSdk from '@fattureincloud/fattureincloud-js-sdk';
 import Anthropic from '@anthropic-ai/sdk';
+import { PDFDocument } from 'pdf-lib';
 
 const program = new Command();
 
@@ -231,6 +232,50 @@ async function createReceivedDocument(api, companyId, documentData, attachmentTo
   }
 }
 
+async function splitPDFIntoPages(pdfPath) {
+  try {
+    const pdfBytes = await fs.promises.readFile(pdfPath);
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pageCount = pdfDoc.getPageCount();
+    
+    if (pageCount === 1) {
+      return [pdfPath]; // Return original file if single page
+    }
+
+    console.log(`📄 Found ${pageCount} pages in PDF`);
+    const pageFiles = [];
+    
+    for (let i = 0; i < pageCount; i++) {
+      const newPdf = await PDFDocument.create();
+      const [copiedPage] = await newPdf.copyPages(pdfDoc, [i]);
+      newPdf.addPage(copiedPage);
+      
+      const pageBytes = await newPdf.save();
+      const pagePath = `${pdfPath.replace('.pdf', '')}_page${i + 1}.pdf`;
+      await fs.promises.writeFile(pagePath, pageBytes);
+      pageFiles.push(pagePath);
+    }
+    
+    return pageFiles;
+  } catch (error) {
+    logError('Failed to split PDF into pages');
+    throw error;
+  }
+}
+
+async function cleanupPageFiles(pageFiles) {
+  if (pageFiles.length <= 1) return; // Skip if no split was needed
+  
+  for (const file of pageFiles) {
+    try {
+      await fs.promises.unlink(file);
+      console.log(`🧹 Cleaned up temporary file: ${file}`);
+    } catch (error) {
+      logWarning(`Failed to cleanup temporary file: ${file}`);
+    }
+  }
+}
+
 // Configure CLI
 program
   .name('receipt2fic')
@@ -248,40 +293,35 @@ async function main() {
   try {
     console.log('🚀 Starting receipt analysis and upload process...');
     
-    // Initialize clients
-    const ficApi = initializeFIC();
+    const api = initializeFIC();
+    const pageFiles = await splitPDFIntoPages(options.file);
     
-    // Analyze receipt with Claude
-    console.log('🔍 Analyzing receipt...');
-    const receiptData = await analyzeReceiptWithClaude(options.file);
-    
-    if (options.debug) {
-      console.log('📊 Extracted receipt data:', JSON.stringify(receiptData, null, 2));
+    for (const pageFile of pageFiles) {
+      try {
+        console.log(`\n📑 Processing page ${pageFiles.indexOf(pageFile) + 1} of ${pageFiles.length}`);
+        
+        const receiptData = await analyzeReceiptWithClaude(pageFile);
+        const validatedData = await validateOutput(receiptData);
+        
+        const attachmentToken = await uploadAttachment(api, options.companyId, pageFile);
+        await createReceivedDocument(api, options.companyId, {
+          ...validatedData,
+          paymentAccountId: options.paymentAccountId
+        }, attachmentToken);
+      } catch (error) {
+        logError(`Failed to process page ${pageFiles.indexOf(pageFile) + 1}: ${error.message}`);
+        if (options.debug) {
+          console.error(error);
+        }
+      }
     }
     
-    const validatedData = await validateOutput(receiptData);
-    
-    // Add payment account ID to the validated data
-    validatedData.paymentAccountId = options.paymentAccountId;
-    
-    // Upload the PDF
-    const attachmentToken = await uploadAttachment(ficApi, options.companyId, options.file);
-
-    // Create the received document
-    const document = await createReceivedDocument(
-      ficApi,
-      options.companyId,
-      validatedData,
-      attachmentToken
-    );
-
-    console.log('\n✨ Success! You can view the document at:');
-    console.log(`🔗 https://secure.fattureincloud.it/expenses/view/${document.id}`);
+    await cleanupPageFiles(pageFiles);
+    console.log('\n✨ All pages processed successfully!');
   } catch (error) {
+    logError(error.message);
     if (options.debug) {
-      console.error('Detailed error:', error);
-    } else {
-      logError(error.message);
+      console.error(error);
     }
     process.exit(1);
   }
